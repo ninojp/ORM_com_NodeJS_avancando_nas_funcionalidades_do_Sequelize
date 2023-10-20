@@ -1,7 +1,7 @@
-'use strict';
+"use strict";
 const {
   Model
-} = require('sequelize');
+} = require("sequelize");
 module.exports = (sequelize, DataTypes) => {
   class Niveis extends Model {
     /**
@@ -10,14 +10,15 @@ module.exports = (sequelize, DataTypes) => {
      * The `models/index` file will call this method automatically.
      */
     static associate(models) {
-      Niveis.hasMany(models.Turmas, {foreignKey: 'nivel_id'})
+      Niveis.hasMany(models.Turmas, {foreignKey: "nivel_id"});
     }
   }
   Niveis.init({
     descr_nivel: DataTypes.STRING
   }, {
     sequelize,
-    modelName: 'Niveis',
+    modelName: "Niveis",
+    paranoid: true
   });
   return Niveis;
 };
