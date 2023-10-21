@@ -1,3 +1,4 @@
+"use strict";
 const {Router} = require("express");
 const PessoaController = require("../controllers/PessoaController");
 
@@ -11,6 +12,8 @@ router.put("/pessoas/:id", PessoaController.atualizaPessoa);
 router.delete("/pessoas/:id", PessoaController.apagaPessoa);
 router.post("/pessoas/:id/restaura", PessoaController.restauraPessoa);
 router.get("/pessoas/:estudanteId/matricula/:matriculaId", PessoaController.pegaUmaMatricula);
+router.get("/pessoas/:estudanteId/matricula", PessoaController.pegaMatriculas);
+router.get("/pessoas/matricula/:turmaId/confirmadas", PessoaController.pegaMatriculasPorTurma);
 router.post("/pessoas/:estudanteId/matricula", PessoaController.criaMatricula);
 router.put("/pessoas/:estudanteId/matricula/:matriculaId", PessoaController.atualizaMatricula);
 router.delete("/pessoas/:estudanteId/matricula/:matriculaId", PessoaController.apagaMatricula);

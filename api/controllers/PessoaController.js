@@ -1,3 +1,4 @@
+"use strict";
 const database = require("../models");
 
 class PessoaController{
@@ -108,7 +109,6 @@ class PessoaController{
   }
   //----------------------------------------------------------------------------------------
   static async apagaMatricula(req, res){
-    // const { estudanteId, matriculaId } = req.params;
     const { matriculaId } = req.params;
     try{
       await database.Matriculas.destroy({where: {id: Number(matriculaId)}});
@@ -117,12 +117,40 @@ class PessoaController{
       return res.status(500).json(error.message);
     }
   }
-  //=========================================================================================
+  //----------------------------------------------------------------------------------------
   static async restauraMatricula(req, res){
     const { estudanteId, matriculaId } = req.params;
     try{
       await database.Matriculas.restore({where: {id: Number(matriculaId), estudante_id: Number(estudanteId)}});
       return res.status(200).json({mensagem: `A Matricula de ID: ${matriculaId}, foi Restaurada!`});
+    }catch(error){
+      return res.status(500).json(error.message);
+    }
+  }
+  //----------------------------------------------------------------------------------------
+  static async pegaMatriculas(req, res){
+    const { estudanteId } = req.params;
+    try{
+      const idPessoa = await database.Pessoas.findOne({where: {id: Number(estudanteId)}});
+      const matriculasConfirmadas = await idPessoa.getAulasMatriculadas();
+      return res.status(200).json(matriculasConfirmadas);
+    }catch(error){
+      return res.status(500).json(error.message);
+    }
+  }
+  //----------------------------------------------------------------------------------------
+  static async pegaMatriculasPorTurma(req, res){
+    const { turmaId } = req.params;
+    try{
+      const todasAsMatriculas = await database.Matriculas.findAndCountAll({
+        where: {
+          turma_id: Number(turmaId),
+          status: "confirmado"
+        },
+        limit: 2,//Limite de resultados por busca
+        order: [["estudante_id", "DESC"]]//Ordem dos resultados ASC(ascendente) DESC(descendente)
+      });
+      return res.status(200).json(todasAsMatriculas);
     }catch(error){
       return res.status(500).json(error.message);
     }

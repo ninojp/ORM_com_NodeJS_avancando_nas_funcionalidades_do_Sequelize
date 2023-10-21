@@ -79,3 +79,30 @@ Definir outros escopos adicionais, conforme necessidade do projeto
 Utilizar um escopo adicional com o método .findAll()
 Validar dados de entrada utilizando validadores próprios do Sequelize
 Refinar e customizar validações de campos utilizando funções e JS puro
+
+## Aula 03 - Escopo de Associação e Operadores
+
+### Aula 03 - Escopos de Associação - Video 1
+
+Nesta aula, o professor aborda a criação de um novo método no controlador de pessoas para consultar todas as matrículas confirmadas de um estudante específico. Ele sugere o uso do método findAll do Sequelize para buscar as matrículas relacionadas a esse estudante. Além disso, o professor menciona a utilização do escopo de associação do Sequelize, que é uma forma mais eficiente de fazer a filtragem. Ele mostra como definir o escopo de associação no modelo de pessoas e como utilizar os métodos automáticos gerados pelo Sequelize a partir das associações.
+
+### Aula 03 - Usando mixins - Video 2
+
+Nesta aula, aprendemos sobre a definição de escopos na associação entre modelos no Sequelize. O Sequelize gera automaticamente alguns métodos a partir desses escopos, chamados de mixins, que reduzem a quantidade de código necessário para fazer queries. Utilizamos o método getAulasMatriculadas para consultar todas as matrículas confirmadas de um estudante. No controlador de pessoas, adicionamos esse método para consultar as matrículas confirmadas de um estudante específico. Criamos uma rota para testar essa funcionalidade e verificamos que as matrículas foram retornadas corretamente. Também aprendemos que os mixins podem ser utilizados sem a necessidade de passar um escopo.  
+> Podemos resumir mixins em: classes que contêm métodos que podem ser utilizados por outras classes, sem a necessidade de herança direta. Dito de outra forma, um mixin fornece métodos que implementam um certo comportamento em objetos, sem poder ser utilizado sozinho, mas sim para adicionar esse comportamento a outras classes.  
+>No Sequelize, temos uma diferença entre escopos de modelo, que são aplicados em chamadas estáticas ao modelo (como no exemplo que fizemos no vídeo, Pessoas.scope('todos').findAll()), e escopos de associação, que são uma regra, ou um conjunto de atributos que são automaticamente aplicados em instâncias do modelo, como em Pessoas.associate = function(models) {...}.  
+>Escopos de associação se comportam da mesma forma que os escopos de modelo, no sentido que ambos aplicam palavras-chave como WHERE em chamadas ao banco; mas os mixins são métodos que existem somente nas instâncias dos modelos: Pessoas.getPessoasMatriculadas, Niveis.getNiveisPorTurma, etc.
+
+### Aula 03 - Usando operadores - Video 3
+
+Nesta aula, aprendemos como permitir a consulta de turmas abertas por intervalo de data utilizando parâmetros de query strings. Foi explicado como utilizar os operadores do Sequelize, como maior que, menor que e entre, para filtrar os resultados. Aprendemos a importar e utilizar esses operadores no código, e também como montar o objeto "where" para aplicar o filtro de datas no método "findAll" do Sequelize. Utilizamos ifs ternários para verificar se os parâmetros de data foram passados e, caso positivo, adicioná-los ao objeto "where". Por fim, fizemos um teste no Postman para verificar se o filtro estava funcionando corretamente.
+
+- Os escopos de associação são definidos nas instâncias de um modelo, ao contrário dos próprios escopos de modelo.  
+  - Alternativa correta! Se voltarmos ao código, podemos ver que o escopo de modelo é definido dentro do objeto Modelo. Já o de associação está ligado a uma instância desse modelo, como por exemplo Pessoas.hasMany(...).
+
+- É possível refinar e incluir novos escopos caso necessário, utilizando a opção scope: { atributo: valor } e dando um nome a este escopo com a opção as: 'nomeDoEscopo'  
+  - Alternativa correta! Como fizemos no vídeo, é possível adicionar um escopo a uma associação e definir um nome pelo qual os métodos serão chamados. Os mixins serão criados a partir deste nome, por exemplo getNomeDoEscopo().
+
+- Os escopos de associação geram alguns métodos (ou mixins) que já fornecem operações comuns de banco, por exemplo Pessoas.getMatriculas(), Pessoas.createMatricula(), Pessoas.countMatriculas().  
+  - Alternativa correta! Como vimos do material extra do curso anterior, as associações feitas através dos métodos hasOne(), HasMany(), belongsTo() e belongsToMany() já disponibilizam estes métodos, independente de existir ou não um escopo de associação definido.
+  
