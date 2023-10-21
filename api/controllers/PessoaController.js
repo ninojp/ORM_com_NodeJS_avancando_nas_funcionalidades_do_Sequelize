@@ -1,5 +1,6 @@
 "use strict";
 const database = require("../models");
+const Sequelize = require("sequelize");
 
 class PessoaController{
   static async pegaPessoasAtivas(req, res) {
@@ -143,7 +144,7 @@ class PessoaController{
     const { turmaId } = req.params;
     try{
       const todasAsMatriculas = await database.Matriculas.findAndCountAll({
-        where: {
+        where: { 
           turma_id: Number(turmaId),
           status: "confirmado"
         },
@@ -151,6 +152,21 @@ class PessoaController{
         order: [["estudante_id", "DESC"]]//Ordem dos resultados ASC(ascendente) DESC(descendente)
       });
       return res.status(200).json(todasAsMatriculas);
+    }catch(error){
+      return res.status(500).json(error.message);
+    }
+  }
+  //----------------------------------------------------------------------------------------
+  static async pegaTurmasLotadas(req, res){
+    const lotacaoTurma = 2;
+    try{
+      const turmasLotadas = await database.Matriculas.findAndCountAll({
+        where: { status: "confirmado" },
+        attributes: ["turma_id"],
+        group: ["turma_id"],
+        having: Sequelize.literal(`count(turma_id) >= ${lotacaoTurma}`)
+      });
+      return res.status(200).json(turmasLotadas.count);
     }catch(error){
       return res.status(500).json(error.message);
     }

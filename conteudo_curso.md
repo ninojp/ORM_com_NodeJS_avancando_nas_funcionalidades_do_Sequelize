@@ -105,4 +105,50 @@ Nesta aula, aprendemos como permitir a consulta de turmas abertas por intervalo 
 
 - Os escopos de associação geram alguns métodos (ou mixins) que já fornecem operações comuns de banco, por exemplo Pessoas.getMatriculas(), Pessoas.createMatricula(), Pessoas.countMatriculas().  
   - Alternativa correta! Como vimos do material extra do curso anterior, as associações feitas através dos métodos hasOne(), HasMany(), belongsTo() e belongsToMany() já disponibilizam estes métodos, independente de existir ou não um escopo de associação definido.
-  
+
+### Aula 03 - Funções agregadoras - Video 4
+
+Nesta aula, o professor ensina como consultar as matrículas por turma e verificar quais estão lotadas. Para isso, é utilizado o método findAndCountAll do Sequelize, que permite contar quantas matrículas existem para cada turma. Também é mostrado como adicionar opções como limit e order para controlar a quantidade de registros retornados e a ordenação dos resultados.
+
+### Aula 03 - Outros agregadores - Video 5
+
+Nesta aula, aprendemos a utilizar o método findAndCountAll do Sequelize para buscar registros no banco de dados com base em um critério específico. Utilizamos as palavras-chave group e having para agrupar os registros e contar quantos têm o mesmo valor de um atributo. Também aprendemos a escrever uma query de SQL utilizando o método sequelize.literal. No final, retornamos apenas a contagem de registros encontrados.
+
+### Para saber mais: Ordem de execução do SQL
+
+Agora que estamos acrescentando alguma complexidade às queries que o Sequelize vai passar para o SQL, é interessante relembrar que existe uma ordem de execução para os operadores e cláusulas.
+
+- No caso de queries de SELECT, a ordem lógica é a seguinte:
+
+- FROM: pega as tabelas onde estão os dados
+
+- WHERE: filtra os dados
+
+- GROUP BY: agrega os dados
+
+- HAVING: filtra os dados agregados
+
+- SELECT: retorna os resultados
+
+- ORDER BY: ordena os resultados
+
+- LIMIT: limita a quantidade de resultados
+
+Ou seja, cada query começa encontrando os dados, filtrando e ordenando. Essa ordem pode fazer com que certos resultados sejam ou não acessíveis em dado momento. Por exemplo, a cláusula WHERE é executada antes de GROUP BY, então não podemos depender de dados retornados pelo GROUP BY para então passar WHERE.
+
+### Aula 03 - Conclusão - Nesta aula, aprendemos
+
+O que são escopos de associação
+Como definir um novo escopo de associação
+Utilizar métodos próprios/mixins em tabelas associadas
+Adicionar um filtro de busca via parâmetros de query
+Utilizar operadores para fazer operações com dados
+Retornar resultados filtrados através de operadores
+Filtrar e enumerar registros com métodos "finders"
+Ordenar os resultados com a opção "order"
+Agrupar registros com "group"
+Passar comandos do SQL dentro do Sequelize com Sequelize.literal()
+
+## Aula 04 - Transações
+
+### Aula 04 - Operações em dois modelos - Video 1
