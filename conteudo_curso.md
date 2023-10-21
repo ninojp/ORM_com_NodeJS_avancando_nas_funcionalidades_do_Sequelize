@@ -152,3 +152,26 @@ Passar comandos do SQL dentro do Sequelize com Sequelize.literal()
 ## Aula 04 - Transações
 
 ### Aula 04 - Operações em dois modelos - Video 1
+
+Nesta aula, aprendemos a criar um método no controlador de pessoas que percorre as tabelas de pessoas e matrículas para cancelar automaticamente todas as matrículas de um estudante quando o seu cadastro for desativado. Utilizamos o Sequelize para realizar as atualizações, passando as informações a serem atualizadas e o critério de atualização. Também foi mencionada a importância das transações para lidar com possíveis problemas no banco de dados durante as atualizações.  
+
+### Aula 04 - Usando transações - Video 2
+
+Nesta aula, aprendemos sobre o conceito de transações no contexto do Sequelize. As transações são utilizadas para garantir a integridade dos dados em operações que envolvem acesso a várias tabelas ou atualizações em várias linhas de uma tabela. Caso ocorra algum erro durante a transação, é realizado um rollback, retornando o banco de dados ao estado anterior. Utilizamos o método sequelize.transaction para implementar transações, onde todas as operações de banco são realizadas dentro de um callback e são gerenciadas pela transação. É necessário passar o parâmetro transaction: transacao em cada método de banco utilizado. Foi demonstrado um exemplo prático de utilização de transações para cancelar matrículas de estudantes, mostrando como as alterações são realizadas dentro da transação e como o rollback é executado em caso de erro.
+
+Como vimos, é muito importante garantir a integridade dos dados que são inseridos ou alterados no banco. Conforme um projeto cresce em complexidade, também ficam mais complexas as operações feitas na base de dados a cada interação.
+
+- Transações servem para garantir a consistência dos dados em um banco; no fim de cada transação, todos os dados devem estar em um estado consistente.
+
+- O gerenciamento de transações pode ser feito pelo Sequelize através do método .transaction().
+
+- Uma transação é uma única operação e deve ser completada com todas as modificações de dados, ou nenhuma modificação é feita. O princípio da transação é garantir que todas as alterações nos dados sejam integralmente efetuadas (e concluídas com COMMIT) ou todos os dados envolvidos serão revertidos para o estado anterior (o chamado ROLLBACK).
+
+> O Sequelize não implementa transações nas queries por padrão; mas é muito aconselhável que você as utilize, especialmente em produção.  
+Existem duas formas de fazer isso utilizando os métodos do Sequelize: a primeira é utilizando transações não gerenciadas (unmanaged transactions), onde quem está desenvolvendo é responsável por chamar os métodos apropriados de rollback e commit:
+
+### Aula 04 - Conclusão - Nesta aula, aprendemos a
+
+Criar métodos para atualizar mais de uma tabela
+Adicionar transações às operações de banco via Sequelize
+Interpretar avisos de versionamento e fazer correções
