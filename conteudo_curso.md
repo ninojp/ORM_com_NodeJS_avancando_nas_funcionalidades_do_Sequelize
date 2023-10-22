@@ -175,3 +175,27 @@ Existem duas formas de fazer isso utilizando os métodos do Sequelize: a primeir
 Criar métodos para atualizar mais de uma tabela
 Adicionar transações às operações de banco via Sequelize
 Interpretar avisos de versionamento e fazer correções
+
+## Aula 05 - Refatorando com Serviços
+
+### Aula 05 - Criando serviços - Video 1
+
+Nesta aula, aprendemos sobre a criação de uma camada de serviços para lidar com a complexidade crescente da aplicação. Foi explicado que os controladores estavam fazendo muitas coisas e que era difícil refatorar o código. A solução proposta foi criar uma pasta de serviços e uma classe Services para lidar com a interface entre o controlador e o modelo. Aprendemos como criar essa classe e como utilizá-la no controlador de pessoas. Essa abordagem permite reutilizar código e separar responsabilidades, facilitando a manutenção e evolução da aplicação.
+
+### Aula 05 - Adicionando serviços - Video 2
+
+Nesta aula, foi discutido a criação de um serviço para fazer a interface com o banco de dados. Foram mencionados métodos comuns a todos os modelos, como pegaUmRegistro, criaRegistro, atualizaRegistro e apagaRegistro, que são os métodos do CRUD. Foi proposto a criação de um serviço geral para esses métodos comuns, e também a criação de serviços específicos para cada controlador, como pessoasServices, turmasServices e niveisServices. Foi explicado que cada serviço estende a classe Services, que contém os métodos do CRUD, e que os métodos específicos de cada controlador podem ser adicionados nos respectivos serviços. Foi criado um arquivo index.js como ponto de entrada para os serviços, que distribui as chamadas para os arquivos correspondentes. Foi mostrado como atualizar o controlador de pessoas para utilizar o serviço pessoasServices, e foi ressaltada a importância de separar os serviços para facilitar a manutenção e o crescimento da aplicação.
+
+### Aula 05 - Herdando serviços - Video 3
+
+Nesta aula, aprendemos sobre a transferência de responsabilidade do controlador de pessoas para o serviço de pessoas. Criamos métodos específicos para pessoas dentro do serviço, como o método "pega registros ativos". Também utilizamos o método "findAll" com o parâmetro "where" para passar filtros de busca. Além disso, exploramos a herança de classe nos serviços, permitindo estender os métodos principais para serem utilizados nos serviços específicos, como o "pessoasServices". Atualizamos as rotas para testar os métodos criados e destacamos a importância de passar parâmetros recebidos pelo controlador para o serviço, permitindo a interação com o modelo.
+
+- Os serviços podem herdar e se conectar entre si, independente das outras camadas. Por exemplo: ProdutoServices.js pode utilizar métodos das classes FornecedorServices.js e herdar métodos a partir de uma classe Services mais genérica.
+
+- A separação entre serviços e controladores ajuda a aplicação a ficar mais modular, fácil de se atualizar e dar manutenção.
+
+- A camada de serviços passa a ser a única com acesso aos modelos, tirando essa responsabilidade dos controladores.
+
+- É uma boa prática conectar um controlador somente ao seu próprio serviço. Por exemplo: ProdutoController.js apenas importar e utilizar métodos que venham de ProdutoServices.js.
+
+- Após a separação, a responsabilidade do serviço é se conectar aos modelos através dos métodos de query do Sequelize; já os controladores recebem as chamadas das rotas, passam para os serviços as informações necessárias e fazem os tratamentos de dados nos retornos.
