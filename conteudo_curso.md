@@ -199,3 +199,23 @@ Nesta aula, aprendemos sobre a transferência de responsabilidade do controlador
 - É uma boa prática conectar um controlador somente ao seu próprio serviço. Por exemplo: ProdutoController.js apenas importar e utilizar métodos que venham de ProdutoServices.js.
 
 - Após a separação, a responsabilidade do serviço é se conectar aos modelos através dos métodos de query do Sequelize; já os controladores recebem as chamadas das rotas, passam para os serviços as informações necessárias e fazem os tratamentos de dados nos retornos.
+
+### Aula 05 - Passando parâmetros - Video 4
+
+Nesta aula, foi abordada a refatoração do controlador para o serviço no método cancelaPessoa. Foi criado o método atualizaRegistro em services.js para realizar o update básico do CRUD de um registro através do id. Também foi criado o método atualizaRegistros, que recebe um where e realiza a alteração de todas as linhas onde o where se aplica. Foi discutido sobre a separação de responsabilidades entre controladores e serviços, e a importância de um controlador ter contato apenas com seu próprio serviço. Foi mostrado como criar um serviço específico para matrículas, utilizando o modelo de pessoas e matrículas. Por fim, foi apresentado o método cancelaPessoaEMatriculas em pessoasService, que realiza a atualização na tabela de pessoas e na tabela de matrículas, dentro de uma transação. O controlador de pessoas foi refatorado para utilizar esse novo método.
+
+### Aula 05 - Finalizando os serviços - Video 5
+
+Nesta aula, foi feita a separação dos métodos dos controladores e dos serviços. Os métodos relacionados ao modelo de matrículas foram separados do controlador de pessoas para manter a organização. Foi mostrado o método pegaMatriculasPorTurma no controlador, que substituiu os updates por um método chamado encontraEContaRegistros no serviço. Esse método recebe dois parâmetros: o where e os agregadores. Foi explicado que o método interno do sequelize utilizado é o find and count all. O controlador recebe a requisição, os parâmetros e o corpo da requisição, e passa tudo para o serviço. O método pegaTurmasLotadas também utiliza o serviço encontraEContaRegistros, mas com informações diferentes. Foi feita uma alteração no método getAll do serviço para incluir uma opção de where no findAll. Por fim, foi mencionado que ainda há refinamentos a serem feitos na aplicação, como validações de banco, e que o sequelize é uma ferramenta completa que permite implementar as necessidades do projeto.
+
+### Aula 05 - Conclusão - Nesta aula, aprendemos a
+
+Criar uma camada de serviços
+Transferir a interface com a database do controlador para o serviço
+Atualizar o código no controlador para acessar os serviços
+Criar serviços específicos que herdem métodos da classe principal
+Organizar os serviços criando um ponto de entrada (index.js)
+Criar métodos específicos para um serviço/modelo
+Passar parâmetros de controladores para serviços
+Conectar serviços entre si
+Refatorar a aplicação para separar controladores e serviços
